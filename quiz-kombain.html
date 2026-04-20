@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кухонный комбайн 9-в-1</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;800&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(165deg, #0A1628 0%, #0D2B3E 25%, #0F3D4F 50%, #11505E 75%, #0D2B3E 100%);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.ornament-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(218,165,32,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(218,165,32,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 50% 0%, rgba(0,180,180,0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ornament-border {
+  position: fixed;
+  top: 8px; left: 8px; right: 8px; bottom: 8px;
+  border: 1px solid rgba(218,165,32,0.15);
+  border-radius: 16px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+  animation: fadeDown 0.7s ease;
+}
+
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #DAA520, #F5C842);
+  color: #0A1628;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 20px;
+  border-radius: 100px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.header h1 .gold { color: #F5C842; display: block; }
+
+.header p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.progress-wrap {
+  margin-bottom: 24px;
+  animation: fadeDown 0.7s ease 0.1s both;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.5px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  overflow: hidden;
+  border: 1px solid rgba(218,165,32,0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #DAA520, #F5C842, #FFD700);
+  border-radius: 100px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 0%;
+  box-shadow: 0 0 12px rgba(245,200,66,0.4);
+}
+
+.quiz-card {
+  background: linear-gradient(145deg, rgba(13,43,62,0.95), rgba(15,61,79,0.9));
+  border: 1px solid rgba(218,165,32,0.25);
+  border-radius: 20px;
+  padding: 28px 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(218,165,32,0.1);
+  animation: fadeUp 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #F5C842, #DAA520, #F5C842, transparent);
+}
+
+.question-number {
+  display: inline-block;
+  background: linear-gradient(135deg, #DAA520, #F5C842);
+  color: #0A1628;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 5px 16px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.question-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 22px;
+  color: #FFFFFF;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(218,165,32,0.2);
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFFFFF;
+  text-align: left;
+  transition: all 0.3s ease;
+  line-height: 1.4;
+}
+
+.option-btn:hover {
+  border-color: #F5C842;
+  background: rgba(245,200,66,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(218,165,32,0.15);
+}
+
+.option-btn:active { transform: scale(0.98); }
+
+.option-btn .emoji { font-size: 26px; flex-shrink: 0; width: 36px; text-align: center; }
+
+.option-btn.selected {
+  border-color: #F5C842;
+  background: linear-gradient(135deg, rgba(218,165,32,0.2), rgba(245,200,66,0.1));
+  box-shadow: 0 0 20px rgba(245,200,66,0.15), inset 0 0 20px rgba(245,200,66,0.05);
+}
+
+.result-card {
+  background: linear-gradient(145deg, rgba(13,43,62,0.95), rgba(15,61,79,0.9));
+  border: 1px solid rgba(218,165,32,0.3);
+  border-radius: 20px;
+  padding: 32px 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(218,165,32,0.15);
+  text-align: center;
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #F5C842, #DAA520, #F5C842, transparent);
+}
+
+.result-emoji { font-size: 56px; display: block; margin-bottom: 14px; animation: bounce 1.5s ease infinite; }
+
+.result-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #DAA520, #F5C842);
+  color: #0A1628;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 6px 20px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.result-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.result-card h2 .gold { color: #F5C842; }
+
+.result-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.feature {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(218,165,32,0.15);
+  border-radius: 14px;
+  padding: 14px 6px;
+  text-align: center;
+}
+
+.feature .f-emoji { font-size: 28px; display: block; margin-bottom: 6px; }
+.feature .f-text { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.85); line-height: 1.3; }
+
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #25D366, #20BA5C);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(37,211,102,0.35);
+  animation: pulse 2.5s ease infinite;
+  letter-spacing: 0.5px;
+}
+
+.whatsapp-btn:hover {
+  background: linear-gradient(135deg, #20BA5C, #1DA851);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(37,211,102,0.45);
+}
+
+.whatsapp-btn svg { width: 24px; height: 24px; fill: white; }
+
+.deco-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F5C842, transparent);
+  margin: 12px auto;
+}
+
+.gift-box {
+  background: linear-gradient(135deg, rgba(218,165,32,0.15), rgba(245,200,66,0.08));
+  border: 2px solid rgba(245,200,66,0.4);
+  border-radius: 16px;
+  padding: 20px 16px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  animation: giftPulse 3s ease infinite;
+}
+
+.gift-box::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+  animation: shimmer 3s ease infinite;
+}
+
+.gift-emoji { font-size: 40px; display: block; margin-bottom: 8px; }
+
+.gift-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #F5C842;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  letter-spacing: 1px;
+}
+
+.gift-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.gift-price {
+  display: inline-block;
+  background: linear-gradient(135deg, #DAA520, #F5C842);
+  color: #0A1628;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-top: 10px;
+}
+
+.gift-urgent {
+  display: inline-block;
+  background: rgba(232,87,58,0.9);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 100px;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+  animation: urgentBlink 1.5s ease infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes giftPulse {
+  0%, 100% { border-color: rgba(245,200,66,0.4); }
+  50% { border-color: rgba(245,200,66,0.7); }
+}
+
+@keyframes urgentBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.restart-btn {
+  margin-top: 16px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.hidden { display: none !important; }
+
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes pulse { 0%, 100% { box-shadow: 0 8px 28px rgba(37,211,102,0.35); } 50% { box-shadow: 0 8px 36px rgba(37,211,102,0.55); } }
+</style>
+</head>
+<body>
+<div class="ornament-bg"></div>
+<div class="ornament-border"></div>
+
+<div class="container">
+  <div class="header" id="header">
+    <span class="header-badge">9 НАСАДКА — 1 КОМБАЙН</span>
+    <h1>Ас үйдегі бәрін <span class="gold">1 комбайнмен жаса!</span></h1>
+    <div class="deco-line"></div>
+    <p>4 сұраққа жауап бер — сенің ас үйіңе не керек екенін анықтайық</p>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-info">
+      <span id="progressText">СҰРАҚ 1 / 4</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <div id="quizArea"></div>
+</div>
+
+<script>
+const PHONE = "77773242446";
+
+const questions = [
+  {
+    id: 1,
+    text: "Ас үйде ең көп уақытыңызды не алады?",
+    options: [
+      { emoji: "🥟", text: "Қамыр илеу, жаю — манты, самса, бәліш", value: "қамыр жұмыстары" },
+      { emoji: "🥗", text: "Турау, тілімдеу — салат, заготовка", value: "турау/заготовка" },
+      { emoji: "🍖", text: "Фарш тарту, ет өңдеу", value: "фарш/ет өңдеу" },
+      { emoji: "😩", text: "Бәрі де! Уақыт жетпейді", value: "барлығы" }
+    ]
+  },
+  {
+    id: 2,
+    text: "Қандай тағамдарды жиі дайындайсыз?",
+    options: [
+      { emoji: "🥟", text: "Манты, пельмен, самса — қамырлы тағам", value: "қамырлы тағам" },
+      { emoji: "🥤", text: "Смузи, коктейль, балаларға тағам", value: "смузи/бала тағамы" },
+      { emoji: "🍅", text: "Томат соус, аджика, заготовка", value: "заготовка/соус" },
+      { emoji: "🍽️", text: "Бәрін жасаймын — отбасы үлкен!", value: "барлық тағам" }
+    ]
+  },
+  {
+    id: 3,
+    text: "Қазір ас үйде қандай жағдай?",
+    options: [
+      { emoji: "🔪", text: "Тек пышақ пен қолым — техника жоқ", value: "техника жоқ" },
+      { emoji: "📦", text: "3-4 құрылғы бар, бірақ орын алады", value: "көп құрылғы" },
+      { emoji: "⚙️", text: "Ескі ет тартқыш бар, бірақ жеткіліксіз", value: "ескі техника" },
+      { emoji: "✨", text: "Жаңа ас үй — бәрін жаңадан аламын", value: "жаңа ас үй" }
+    ]
+  },
+  {
+    id: 4,
+    text: "Бұл комбайн кімге керек?",
+    options: [
+      { emoji: "🙋‍♀️", text: "Өзіме — уақыт үнемдегім келеді", value: "өзіме" },
+      { emoji: "🎁", text: "Сыйлыққа — қыз ұзату, мереке", value: "сыйлыққа" },
+      { emoji: "💰", text: "Бизнеске — үйде тапсырыс жасаймын", value: "бизнеске" },
+      { emoji: "🤔", text: "Әлі ойланып жүрмін, бағасын білгім келеді", value: "ойланып жүр" }
+    ]
+  }
+];
+
+let current = 0;
+let answers = [];
+
+function renderQuestion(index) {
+  const q = questions[index];
+  const percent = Math.round((index / questions.length) * 100);
+  document.getElementById('progressText').textContent = `СҰРАҚ ${index + 1} / ${questions.length}`;
+  document.getElementById('progressPercent').textContent = `${percent}%`;
+  document.getElementById('progressFill').style.width = `${percent}%`;
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-card">
+      <span class="question-number">СҰРАҚ ${q.id}</span>
+      <div class="question-text">${q.text}</div>
+      <div class="options">
+        ${q.options.map((o, i) => `
+          <button class="option-btn" onclick="selectAnswer(${index}, ${i})">
+            <span class="emoji">${o.emoji}</span>
+            <span>${o.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(qIndex, optIndex) {
+  document.querySelectorAll('.option-btn')[optIndex].classList.add('selected');
+  answers.push({ question: questions[qIndex].text, answer: questions[qIndex].options[optIndex].value });
+  setTimeout(() => { current++; current < questions.length ? renderQuestion(current) : showResult(); }, 400);
+}
+
+function showResult() {
+  document.getElementById('header').classList.add('hidden');
+  document.getElementById('progressWrap').classList.add('hidden');
+
+  let msg = "Сәлеметсіз бе! 👋\nКвиздан өттім, 9-в-1 кухонный комбайн қызықтырады!\n\n";
+  answers.forEach((a, i) => { msg += `${i+1}. ${a.question}\n✅ ${a.answer}\n\n`; });
+  msg += "Толығырақ ақпарат пен бағасын білгім келеді!\n🎁 50 000 тг-лік сыйлық алғым келеді! 🙏";
+
+  const waLink = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+
+  document.getElementById('quizArea').innerHTML = `
+    <div class="result-card">
+      <span class="result-emoji">🎉</span>
+      <span class="result-badge">НӘТИЖЕ ДАЙЫН</span>
+      <h2>Сізге <span class="gold">9-в-1 кухонный комбайн</span> — керемет шешім!</h2>
+      <div class="deco-line"></div>
+      <p class="result-desc">Бұл комбайн уақытыңызды 3-4 есе үнемдейді. Бір сағатта бірнеше түрлі сүйікті тағамдарыңызды дайындай аласыз! Қолыңызды былғамай, сағаттап кухняда тұрмай!</p>
+      
+      <div class="features">
+        <div class="feature"><span class="f-emoji">🥟</span><span class="f-text">Қамыр илеп жаяды</span></div>
+        <div class="feature"><span class="f-emoji">🥩</span><span class="f-text">Фарш тартады</span></div>
+        <div class="feature"><span class="f-emoji">🥕</span><span class="f-text">Турайды тілімдейді</span></div>
+        <div class="feature"><span class="f-emoji">🥤</span><span class="f-text">Смузи коктейль</span></div>
+        <div class="feature"><span class="f-emoji">👶</span><span class="f-text">Бала тағамы</span></div>
+        <div class="feature"><span class="f-emoji">🍅</span><span class="f-text">Томат соус заготовка</span></div>
+        <div class="feature"><span class="f-emoji">⏱️</span><span class="f-text">1 сағатта бәрі дайын</span></div>
+        <div class="feature"><span class="f-emoji">🎁</span><span class="f-text">Қыз ұзатуға сыйлық</span></div>
+        <div class="feature"><span class="f-emoji">9️⃣</span><span class="f-text">9 насадка бірде-бір</span></div>
+      </div>
+
+      <div class="gift-box">
+        <span class="gift-emoji">🎁</span>
+        <div class="gift-title">СЫЙЛЫҚ БАР!</div>
+        <p class="gift-desc">Тап қазір заявка тастағандарға 50 000 тг-лік сыйлықты ТЕГІН береміз!</p>
+        <span class="gift-price">50 000 ₸ ТЕГІН</span><br>
+        <span class="gift-urgent">⚡ САНЫ ШЕКТЕУЛІ</span>
+      </div>
+
+      <a href="${waLink}" target="_blank" class="whatsapp-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WHATSAPP-ТА ЖАЗУ
+      </a>
+
+      <button class="restart-btn" onclick="restart()">Қайтадан бастау ↺</button>
+    </div>
+  `;
+}
+
+function restart() {
+  current = 0; answers = [];
+  document.getElementById('header').classList.remove('hidden');
+  document.getElementById('progressWrap').classList.remove('hidden');
+  renderQuestion(0);
+}
+
+renderQuestion(0);
+</script>
+</body>
+</html>
